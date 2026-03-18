@@ -14,7 +14,9 @@ st.title("Groq API with Langchain")
 # create a chat instance
 input_text = st.text_input("Enter your query:")
 
-## LLM integration with groq api
+## LLM integration with groq api ChatGroq()
+
+ChatGroq = ChatGroq(temperature=0.7)
 
 if input_text:
     
