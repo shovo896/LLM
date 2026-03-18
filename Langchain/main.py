@@ -19,5 +19,8 @@ input_text = st.text_input("Enter your query:")
 ChatGroq = ChatGroq(temperature=0.8)
 
 if input_text:
+    ChatGroq_response = ChatGroq(input_text)
+    st.write("Response from Groq API:")
+    st.write(ChatGroq_response)
     
 
