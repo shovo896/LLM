@@ -1,1 +1,0 @@
-groqapi_key='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'
