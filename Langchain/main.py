@@ -16,7 +16,7 @@ input_text = st.text_input("Enter your query:")
 
 ## LLM integration with groq api ChatGroq()
 
-ChatGroq = ChatGroq(temperature=0.7)
+ChatGroq = ChatGroq(temperature=0.8)
 
 if input_text:
     
