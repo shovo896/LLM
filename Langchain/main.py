@@ -1,46 +1,131 @@
 import os
+from pathlib import Path
 
 import streamlit as st
-from streamlit.errors import StreamlitSecretNotFoundError
+from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_groq import ChatGroq
+from streamlit.errors import StreamlitSecretNotFoundError
+
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    load_dotenv = None
 
 
-def get_groq_api_key() -> str | None:
-    """Load the Groq API key from Streamlit secrets or environment variables."""
+DEFAULT_MODEL = "llama-3.1-8b-instant"
+SYSTEM_PROMPT = "You are a helpful assistant."
+
+
+def load_local_env() -> None:
+    """Load environment variables from a nearby .env file when available."""
+    if load_dotenv is None:
+        return
+
+    load_dotenv()
+    load_dotenv(Path(__file__).resolve().parent / ".env", override=False)
+
+
+def get_groq_api_key() -> str:
+    """Load the Groq API key from Streamlit secrets, the environment, or the UI."""
     try:
-        return st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+        secret_key = st.secrets.get("GROQ_API_KEY", "")
     except StreamlitSecretNotFoundError:
-        return os.getenv("GROQ_API_KEY")
+        secret_key = ""
 
+    return (
+        secret_key
+        or os.getenv("GROQ_API_KEY", "")
+        or st.session_state.get("groq_api_key", "")
+    ).strip()
+
+
+def build_message_history() -> list[SystemMessage | HumanMessage | AIMessage]:
+    """Convert Streamlit session messages into LangChain chat messages."""
+    history: list[SystemMessage | HumanMessage | AIMessage] = [
+        SystemMessage(content=SYSTEM_PROMPT)
+    ]
+
+    for message in st.session_state.messages:
+        if message["role"] == "user":
+            history.append(HumanMessage(content=message["content"]))
+        else:
+            history.append(AIMessage(content=message["content"]))
+
+    return history
+
+
+load_local_env()
+
+st.set_page_config(page_title="Groq Chatbot", page_icon="🤖")
+st.title("Groq Chatbot")
+st.caption("Chat with Groq using LangChain.")
+
+if "messages" not in st.session_state:
+    st.session_state.messages = [
+        {
+            "role": "assistant",
+            "content": "Add your Groq API key in the sidebar, then start chatting.",
+        }
+    ]
+
+with st.sidebar:
+    st.header("Settings")
+    entered_api_key = st.text_input(
+        "Groq API key",
+        value=st.session_state.get("groq_api_key", ""),
+        type="password",
+        help="You can also set GROQ_API_KEY in your environment or Streamlit secrets.",
+    )
+    st.session_state.groq_api_key = entered_api_key.strip()
+
+    model_name = st.text_input(
+        "Groq model",
+        value=st.session_state.get("model_name", DEFAULT_MODEL),
+        help="Change this if your Groq account uses a different model name.",
+    ).strip()
+    st.session_state.model_name = model_name or DEFAULT_MODEL
+
+    if st.button("Clear chat history"):
+        st.session_state.messages = [
+            {
+                "role": "assistant",
+                "content": "Chat history cleared. Ask a new question when you're ready.",
+            }
+        ]
+        st.rerun()
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
 
 groq_api_key = get_groq_api_key()
 if not groq_api_key:
-    st.error(
-        "Missing `GROQ_API_KEY`. Add it to Streamlit secrets for deployment "
-        "or export it as an environment variable locally."
+    st.info(
+        "Enter a valid `GROQ_API_KEY` in the sidebar, Streamlit secrets, or a local `.env` file."
     )
     st.stop()
 
+prompt = st.chat_input("Ask something")
+if prompt:
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
 
-# streamlit framework
+    with st.chat_message("assistant"):
+        try:
+            llm = ChatGroq(
+                api_key=groq_api_key,
+                model=st.session_state.model_name,
+                temperature=0.8,
+            )
+            response = llm.invoke(build_message_history())
+            answer = response.content.strip() if response.content else "No response returned."
+            st.markdown(answer)
+        except Exception as exc:
+            answer = (
+                "The request failed. Check your API key, selected model, and network access.\n\n"
+                f"Details: `{exc}`"
+            )
+            st.error(answer)
 
-st.title("Groq API with Langchain")
-# create a chat instance
-input_text = st.text_input("Enter your query:")
-
-## LLM integration with groq api ChatGroq()
-
-llm = ChatGroq(
-    api_key=groq_api_key,
-    model="llama-3.1-8b-instant",
-    temperature=0.8,
-)
-
-if input_text:
-    chat_groq_response = llm.invoke(input_text)
-    st.write("Response from Groq API:")
-    st.write(chat_groq_response.content)
-    
-    
-    
-    
+    st.session_state.messages.append({"role": "assistant", "content": answer})
