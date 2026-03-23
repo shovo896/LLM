@@ -56,7 +56,7 @@ def build_message_history() -> list[SystemMessage | HumanMessage | AIMessage]:
 
 load_local_env()
 
-st.set_page_config(page_title="Groq Chatbot", page_icon="🤖")
+st.set_page_config(page_title="Groq Chatbot")
 st.title("Groq Chatbot")
 st.caption("Chat with Groq using LangChain.")
 
