@@ -41,3 +41,6 @@ if input_text:
     st.write("Response from Groq API:")
     st.write(chat_groq_response.content)
     
+    
+    
+    
