@@ -7,3 +7,12 @@ from langchain.chat_models import ChatOpenAI
 
 
 ## streamlit app 
+st.set_page_config(page_title="Conversational Chatbot", page_icon=":robot_face:")
+st.title("Conversational Chatbot with Langchain and Streamlit")
+st.header("Ask me anything!")
+
+
+
+## load dot env file 
+from dotenv import load_dotenv
+load_dotenv()
