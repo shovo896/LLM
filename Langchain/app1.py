@@ -23,6 +23,7 @@ chat_model = ChatOpenAI(temperature=2.5,model="gpt-3.5-turbo")
 
 
 def get_openai_response(question):
+       st.session_state.messages.append({"role": "user", "content": question})
        response = chat_model([HumanMessage(content=question)])
        return response
 
