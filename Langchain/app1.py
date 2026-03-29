@@ -21,6 +21,15 @@ import os
 ## initialize chat model
 chat_model = ChatOpenAI(temperature=2.5,model="gpt-3.5-turbo")
 
+if 'flowmessages' not in st.session_state:
+    st.session_state.messages = [SystemMessage(content="You are a helpful assistant. Answer the user's questions to the best of your ability.")]
+
+
+
+
+
+# function to load openAI model to get responses 
+
 
 def get_openai_response(question):
        st.session_state.messages.append({"role": "user", "content": question})
