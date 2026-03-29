@@ -16,4 +16,7 @@ st.header("Ask me anything!")
 ## load dot env file 
 from dotenv import load_dotenv
 load_dotenv()
+import os 
 
+## initialize chat model
+chat_model = ChatOpenAI(temperature=2.5,model="gpt-3.5-turbo")
