@@ -20,3 +20,9 @@ import os
 
 ## initialize chat model
 chat_model = ChatOpenAI(temperature=2.5,model="gpt-3.5-turbo")
+
+
+def get_openai_response(question):
+       llm=OpenAI(model_name="gpt-3.5-turbo",temperature=2.5)
+       response=llm(question)
+       return response
