@@ -1,0 +1,9 @@
+# activate the environment 
+unstructured 
+tiktoken 
+pinecone-client
+pypdf 
+openai 
+pandas 
+numpy 
+python-dotenv
