@@ -1,0 +1,2 @@
+-r vectordatabase_langchain/requirements.txt
+-r Langchain/requirements.txt
