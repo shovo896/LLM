@@ -1,6 +1,10 @@
 groq
 streamlit
 langchain
+langchain-community
+langchain-classic
 langchain-openai
 langchain-groq
+datasets
+cassio
 python-dotenv
