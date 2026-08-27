@@ -26,6 +26,12 @@ llm = ChatOpenAI(
     }
 )
 
+def process(state: AgentState) -> AgentState:
+    """this node will solve request you input and return the response from the LLM"""
+    
+    response = llm.invoke(state["messages"])
+    state["messages"] = response
+    return state 
     
     
 
