@@ -36,6 +36,13 @@ def process(state: AgentState) -> AgentState:
     return state 
 
 
+graph = StateGraph(AgentState) 
+graph.add_node("agent", process)
+graph.add_edge(START, 'agent')
+graph.add_edge('agent', END)
+
+
+
 
     
     
