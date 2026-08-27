@@ -15,7 +15,7 @@ if not api_key:
 
 
 llm = ChatOpenAI(
-    model="meta-llama/llama-3.1-8b-instruct:free",  
+    model="nvidia/nemotron-3.5-lightning:free",
     api_key=api_key,
     base_url="https://openrouter.ai/api/v1",          
     default_headers={

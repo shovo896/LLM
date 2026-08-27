@@ -17,7 +17,7 @@ class AgentState(TypedDict):
     messages: List[BaseMessage] 
     
 llm = ChatOpenAI(
-    model="meta-llama/llama-3.1-8b-instruct:free",  
+    model="nvidia/nemotron-3.5-lightning:free",
     api_key=api_key,
     base_url="https://openrouter.ai/api/v1",          
     default_headers={
@@ -29,5 +29,8 @@ llm = ChatOpenAI(
 def process(state:AgentState) -> AgentState: 
     response= llm.invoke(state["messages"]) 
     state["messages"].append(response)
-    return state
+    print(f"Agent: {response.content}") 
+    return state 
+
+
     
