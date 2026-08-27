@@ -36,7 +36,15 @@ def process(state: AgentState) -> AgentState:
     return state 
 
 with open("logging.txt", "a") as log_file:
-    log_file.write("Your conversation log \n")
+    log_file.write("Your conversation logged here:\n") 
+    for message in conversation_history:
+        if isinstance(message, HumanMessage):
+            log_file.write(f"You: {message.content}\n")
+        elif isinstance(message, AIMessage):
+            log_file.write(f"Agent: {message.content}\n")
+    file.write("\n")  # Add a newline after each conversation for separation    
+    
+print("Conversation logged in logging.txt")
 
 
 graph = StateGraph(AgentState) 
