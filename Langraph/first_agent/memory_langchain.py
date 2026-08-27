@@ -35,6 +35,9 @@ def process(state: AgentState) -> AgentState:
     
     return state 
 
+with open("logging.txt", "a") as log_file:
+    log_file.write("Your conversation log \n")
+
 
 graph = StateGraph(AgentState) 
 graph.add_node("agent", process)
