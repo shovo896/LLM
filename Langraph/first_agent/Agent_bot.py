@@ -1,10 +1,14 @@
 from typing import TypedDict, List
 from langchain_core.messages import HumanMessage, AIMessage, BaseMessage
-from langchain_openai import ChatOpenAI
-from langgraph.graph import StateGraph, START, END
-import os
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI 
+from langraph import StateGraph, START, END 
 
-# ✅ OpenRouter দিয়ে Free OSS Model (Llama 3, Mistral, Gemma etc.)
+import os 
+
+load_dotenv() 
+
+
 llm = ChatOpenAI(
     model="meta-llama/llama-3.1-8b-instruct:free",  
     api_key=os.getenv("OPENROUTER_API_KEY"),         
