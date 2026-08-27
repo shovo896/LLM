@@ -40,6 +40,12 @@ graph = StateGraph(AgentState)
 graph.add_node("agent", process)
 graph.add_edge(START, 'agent')
 graph.add_edge('agent', END)
+agent=graph.compile() 
+
+
+conversation_history=[]
+user_input = input("You: ") 
+
 
 
 
