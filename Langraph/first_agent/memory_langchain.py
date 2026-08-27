@@ -10,5 +10,14 @@ load_dotenv()
 
 
 
+class AgentState(TypedDict):
+    #messages: List[HumanMessage]
+    #messages_ai:List[Union[AIMessage]] 
+    messages: Union[HumanMessage, AIMessage]
+    
+    
+
+    
+    
 
 
