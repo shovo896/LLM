@@ -47,6 +47,14 @@ conversation_history=[]
 user_input = input("You: ") 
 
 
+while user_input != "exit":
+    conversation_history.append(HumanMessage(content=user_input))
+    state = {"messages": conversation_history}
+    result = agent.invoke(state)
+    conversation_history = result["messages"]
+    user_input = input("You: ")
+
+
 
 
 
