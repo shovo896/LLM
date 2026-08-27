@@ -31,6 +31,8 @@ def process(state: AgentState) -> AgentState:
     
     response = llm.invoke(state["messages"])
     state["messages"].append(AIMessage(content=response.content))
+    print(f"\nAgent: {response.content}") 
+    
     return state 
 
 
