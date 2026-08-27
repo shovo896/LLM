@@ -5,3 +5,8 @@ from langchain_openai import ChatOpenAI
 from langraph import StateGraph, START, END 
 
 import os 
+load_dotenv() 
+
+class AgentState(TypedDict): 
+    messages: List[BaseMessage] 
+    
