@@ -29,7 +29,6 @@ llm = ChatOpenAI(
 def process(state:AgentState) -> AgentState: 
     response= llm.invoke(state["messages"]) 
     state["messages"].append(response)
-    print(f"Agent: {response.content}") 
     return state 
 
 graph = StateGraph(AgentState) 
@@ -39,8 +38,29 @@ graph.add_edge('agent',END)
 agent_app = graph.compile() 
 
 if __name__ == "__main__":
-    user_input = input("You: ")
-    agent_app.invoke({"messages": [HumanMessage(content=user_input)]})
+    messages: List[BaseMessage] = []
+
+    while True:
+        try:
+            user_input = input("You: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print("\nChat ended.")
+            break
+
+        if user_input.lower() in {"exit", "quit"}:
+            print("Chat ended.")
+            break
+        if not user_input:
+            continue
+
+        try:
+            result = agent_app.invoke(
+                {"messages": [*messages, HumanMessage(content=user_input)]}
+            )
+            messages = result["messages"]
+            print(f"Agent: {messages[-1].content}")
+        except Exception as error:
+            print(f"Request failed: {type(error).__name__}: {error}")
 
 
 
