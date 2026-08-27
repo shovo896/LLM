@@ -34,7 +34,7 @@ app = graph.compile()
 
 
 if __name__ == "__main__":
-    user_input = input("তুমি: ")
+    user_input = input("You")
     initial_state = {
         "messages": [HumanMessage(content=user_input)]
     }
