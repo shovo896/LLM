@@ -38,8 +38,9 @@ graph.add_edge(START,'agent')
 graph.add_edge('agent',END) 
 agent_app = graph.compile() 
 
-user_input = input("You: ") 
-agent_invoke({"messages":[HumanMessage(content=user_input)]})
+if __name__ == "__main__":
+    user_input = input("You: ")
+    agent_app.invoke({"messages": [HumanMessage(content=user_input)]})
 
 
 
