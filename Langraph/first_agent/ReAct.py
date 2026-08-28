@@ -8,3 +8,4 @@ from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode 
 
 
+load_dotenv()
