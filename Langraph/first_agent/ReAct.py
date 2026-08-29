@@ -77,6 +77,10 @@ graph.add_edge(START, model_call, should_continue)
 tool_node=ToolNode(tools=tools)
 graph.add_node("tools", tool_node)
 
+graph.add_entry_point("our_agent")
+
+graph.add_clonditional_edges("our_agent",should_continue, {"continue": tools, "end": END})
+
 
 
 
