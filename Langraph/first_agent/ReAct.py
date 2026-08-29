@@ -6,6 +6,9 @@ from langgraph.graph import END, START, StateGraph
 from langchain_core.tools import Tool
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode 
+import os 
+
+
 
 
 load_dotenv()
@@ -33,4 +36,20 @@ new_state={"messages": ["Hi!", "Nice to meet you!"]} '''
 class AgentState(TypedDict):
     messages: Annotated[List[BaseMessage], "The list of messages exchanged between the agent and the user"]
     email: Annotated[str, "The email address of the user"]
+    
+@tool 
+def add(a:int,b:int)->int:
+    """Add two numbers together."""
+    return a+b
+
+tools=[add]
+model=ChatOpenAI(
+    model="nvidia/nemotron-3.5-lightning:free",
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1",
+    default_headers={
+        "HTTP-Referer": "http://localhost",
+        "X-Title": "AgentBot",
+    }
+)
 
