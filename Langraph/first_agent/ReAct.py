@@ -74,6 +74,11 @@ graph.add_edge(START, model_call, should_continue)
 
 
 
+tool_node=ToolNode(tools=tools)
+graph.add_node("tools", tool_node)
+
+
+
 
 
 
