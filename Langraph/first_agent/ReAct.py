@@ -55,8 +55,9 @@ model=ChatOpenAI(
 
 
 def model_call(state:AgentState)->AgentState: 
-    response=model.invoke(["You are my AI assistant. Please respond to the user's messages in a helpful and friendly manner.", *state["messages"]])
-    return {"messages": [*state["messages"], response]} 
+    system_prompt=SystemMessage(content="You are my helpful assistant. You will answer the user's questions and provide assistance as needed.")
+    response=model([system_prompt]+state["messages"]) 
+    return {"messages": state["messages"]+[response], "email": state["email"]} 
 
 
 
