@@ -98,6 +98,13 @@ def print_stream(stream):
             print(f"Tool Calls: {message.tool_calls}")
         
         
+        
+inputs={"messages":[HumanMessage(content="Hello! How are you?")], "email":"sjxbhj@gmail.com"}
+stream=app.stream(inputs)
+print_stream(stream) 
+
+
+        
 
 
 
