@@ -51,5 +51,7 @@ model=ChatOpenAI(
         "HTTP-Referer": "http://localhost",
         "X-Title": "AgentBot",
     }
-)
+).bind_tools(tools)
+
+
 
