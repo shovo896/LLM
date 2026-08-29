@@ -87,6 +87,20 @@ graph.add_edge("tools","our_agent")
 app=graph.compile()
 
 
+def print_stream(stream): 
+    for s in stream: 
+        print(s)
+        message=s["message"][-1]
+        print(f"{message.type}: {message.content}") 
+        if isinstance(message,tuple): 
+            print(f"Tool Calls: {message.tool_calls}")
+        else: 
+            print(f"Tool Calls: {message.tool_calls}")
+        
+        
+
+
+
 
 
 
