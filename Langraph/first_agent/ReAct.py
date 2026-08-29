@@ -11,3 +11,5 @@ from langgraph.prebuilt import ToolNode
 load_dotenv()
 
 
+email=Annotated[str, "The email address of the user"] 
+print("Email:", email)
