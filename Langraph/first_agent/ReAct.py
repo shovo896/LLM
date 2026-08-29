@@ -60,6 +60,18 @@ def model_call(state:AgentState)->AgentState:
     return {"messages": state["messages"]+[response], "email": state["email"]} 
 
 
+def should_continue(state:AgentState)->bool:
+    last_message=state["messages"][-1]
+    if isinstance(last_message, AIMessage):
+        return True
+    return False
+
+graph=StateGraph(AgentState) 
+graph.add_node(START, model_call)
+graph.add_node(END, lambda state: state)
+graph.add_edge(START, model_call, should_continue)
+
+
 
 
 
