@@ -13,3 +13,4 @@ load_dotenv()
 
 email=Annotated[str, "The email address of the user"] 
 print("Email:", email)
+print(email.__metadata__) 
