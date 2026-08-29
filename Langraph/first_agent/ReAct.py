@@ -54,4 +54,13 @@ model=ChatOpenAI(
 ).bind_tools(tools)
 
 
+def model_call(state:AgentState)->AgentState: 
+    response=model.invoke(["You are my AI assistant. Please respond to the user's messages in a helpful and friendly manner.", *state["messages"]])
+    return {"messages": [*state["messages"], response]} 
+
+
+
+
+
+
 
