@@ -19,7 +19,7 @@ vocab_size = 0
 string_to_int = {}
 int_to_string = {}
 
-
+onek
 def build_parser():
     parser = argparse.ArgumentParser(
         description="Load a saved GPT-like model and generate text."
