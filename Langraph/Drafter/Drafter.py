@@ -108,7 +108,15 @@ graph = StateGraph(AgentState)
 graph.add_node("agent", our_agent)
 graph.add_node("tools", ToolNode(tools))
 graph.add_edge(START, "agent")
-graph.add_conditional_edges("agent", tools_condition)
+##graph.add_conditional_edges("agent", tools_condition)
+graph.add_conditional_edges(
+    "tools",should_continue,
+    {
+        "continue": "agent",
+        "end": END , 
+        
+    }
+)
 graph.add_edge("tools", "agent")
 
 app = graph.compile()
