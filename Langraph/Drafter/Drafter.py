@@ -42,6 +42,8 @@ def save(filename:str)  -> str :
        except Exception as e :
               return f"An error occurred while saving the document: {str(e)}"   
 
+tools = [update,save]
+
 
 
 
