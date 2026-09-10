@@ -120,7 +120,15 @@ def our_agent(state: AgentState) -> AgentState:
 
 
  def print_messages(messages):
-       """fuction"""
+       """fuction i made to print the messages in a more readable format."""
+       if not messages:
+              return 
+
+
+
+       for message in messages[-3:]:
+              if isinstance(message,ToolMessage) and "saved" in message.content.lower(): 
+                print(f"\n Tool :  {message.content}")
 
 
 
