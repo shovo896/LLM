@@ -131,12 +131,10 @@ def our_agent(state: AgentState) -> AgentState:
                 print(f"\n Tool :  {message.content}")
 
 
-
-
-
-           
-           
-
+graph = StateGraph(AgentState) 
+graph.add_node("agent", our_agent)
+graph.add_node("tools", ToolNode(tools))
+graph.set_entry_point("agent")
 
 
 
