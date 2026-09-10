@@ -11,6 +11,33 @@ load_dotenv()
 
 document_content=""
 
+class AgentState(TypedDict):
+       messages : Annotated[Sequence[BaseMessage], add_messages]
+
+
+@tool 
+
+def update(content:str) -> str : 
+       """updated the document with the provided content"""
+
+       global document_content 
+       document_content = content
+
+       return f" Document has been updated successfully ! The current content is : \n{document_content}"
+
+@tool 
+def save(filename:str)  -> str :
+       """ save the document to the text file and finish the process.
+       Args : Name for the text file
+       
+       """
+       global document_content 
+       if not filename.endwith('.txt'):
+              filename = filename + '.txt'
+
+
+
+
 
 
 
