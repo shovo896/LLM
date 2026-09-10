@@ -55,23 +55,22 @@ model = ChatOpenAI(
 ).bind_tools(tools)
 
 
-def our_agent(state:AgentState) -> AgentState: 
-       system_prompt = SystemMessage(
-              content=f  """You are  a drafter.You are going to be help the user to update and modidy docements.
-              -If the user wants to update or modify content ,use the update tool with the completed update content . 
-              -if the user wants to finish or terminate please finish or terminate 
-              -make sure always allow the modification 
-              -The current document is {document_content} . """) 
+def our_agent(state: AgentState) -> AgentState:
+    document_content = state.get("document_content", "")
 
+    system_prompt = SystemMessage(
+        content=f"""You are a drafter. You help the user update and modify documents.
 
+- If the user wants to update or modify content, use the update tool with the complete updated content.
+- If the user wants to finish or terminate, finish or terminate.
+- Always allow modifications.
+- The current document is:
 
-              
+{document_content}
+"""
+    )
 
+   
+    return state
 
-
-
-
-
-
-       )
-
+    
