@@ -114,9 +114,12 @@ graph.add_conditional_edges(
     {
         "continue": "agent",
         "end": END , 
-        
+
     }
 )
 graph.add_edge("tools", "agent")
 
 app = graph.compile()
+
+def run_document_agent(): 
+    print("\n Welcome to the Document Drafter Agent! You can update, modify, and save your document using this agent.")
