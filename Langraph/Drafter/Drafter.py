@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 from typing import Annotated, Sequence, TypedDict
 
 from dotenv import load_dotenv
@@ -10,7 +11,7 @@ from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode, tools_condition
 
 
-load_dotenv()
+load_dotenv(Path(__file__).resolve().parents[2] / "vectordatabase_langchain" / ".env")
 
 document_content = ""
 
@@ -50,7 +51,7 @@ tools = [update, save]
 
 model = ChatOpenAI(
     model="nvidia/nemotron-3.5-lightning:free",
-    api_key=os.getenv("OPENROUTER_API_KEY"),
+    api_key=os.getenv("OPENROUTER_API_KEY") or os.getenv("OPEN_API_KEY"),
     base_url="https://openrouter.ai/api/v1",
     default_headers={
         "HTTP-Referer": "http://localhost",
