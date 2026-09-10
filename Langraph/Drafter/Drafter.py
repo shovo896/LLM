@@ -9,4 +9,9 @@ from langgraph.prebuilt import ToolNode
 
 load_dotenv() 
 
+document_content=""
+
+
+
+
 
