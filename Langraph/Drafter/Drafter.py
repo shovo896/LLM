@@ -91,7 +91,34 @@ def our_agent(state: AgentState) -> AgentState:
 
 
     response=model.invoke(all_messages)
-    return response
+
+
+
+    print(f"\n Agent : {response.content}")
+    if hasattr(response,"tool_calls") and response.tool_calls :
+           print(f"using tools : {[tc["tool_name"] for tc in response.tool_calls]}")
+
+    return {"messages": state["messages"]+[user_input,response],"document_content":document_content}
+
+
+
+    ## conditional edge  function 
+
+    def should_continue(state: AgentState) -> str :
+           """ determine if we should continue or end of the converstation based on the last message in the state. If the last message is a tool call, we continue, otherwise we end. """
+
+           messages = state['messages'] 
+           if not messages: 
+                  return "continue"
+           for message in reversed(messages): 
+                  if (isinstance(message,ToolMessage) and "saved" in message.content.lower()) or (isinstance(message,AIMessage) and "finish" in message.content.lower()): 
+              
+                         return "end"
+           
+
+
+
+
 
 
 
