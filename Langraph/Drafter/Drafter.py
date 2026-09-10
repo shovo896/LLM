@@ -123,3 +123,8 @@ app = graph.compile()
 
 def run_document_agent(): 
     print("\n Welcome to the Document Drafter Agent! You can update, modify, and save your document using this agent.")
+    state= {"messages": []}
+    for step in app.stream(state,stream_mode="values"): 
+        if 'messages' in step : 
+                print_messages(step['messages'])
+    print("Drafter Agent has finished")
