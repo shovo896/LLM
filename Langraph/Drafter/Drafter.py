@@ -35,6 +35,13 @@ def save(filename:str)  -> str :
        if not filename.endwith('.txt'):
               filename = filename + '.txt'
 
+       try : 
+              with open(filename,'w')  as file : 
+                     file.write(document_content)
+              return f"Document has been saved successfully to {filename} !"
+       except Exception as e :
+              return f"An error occurred while saving the document: {str(e)}"   
+
 
 
 
