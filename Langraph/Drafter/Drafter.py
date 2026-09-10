@@ -86,9 +86,10 @@ def our_agent(state: AgentState) -> AgentState:
 
                  print(f"\n User : {user_input}")
                  user_input = HumanMessage(content=user_input)
+    all_messages= [system_prompt]+list(state["messages"])+[user_input]
 
 
-                 
+
 
 
 
