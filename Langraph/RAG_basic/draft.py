@@ -118,6 +118,43 @@ try :
     tools = [retriever_tool]
     llm = llm.bind_tools(tools) 
     
+    class AgentState(TypedDict): 
+        messages : Annotated[Sequence[BaseMessage],add_messages]
+        
+        
+        
+        
+    def should_continue(state:AgentState): 
+        result = state['messages'][-1]
+        return hasattr(result,'tool_calls') and len(result.tool_calls) >0 
+    
+    
+    
+    
+    system_prompt  = """
+    
+    you are an intelligengt ai assistant who can analize the book and give the correct answer 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    """
+    
+    
+    
+    tools_dict = {our_tool.name: our_tool for our_tool in tools }
+    
+    
+    def call_llm(state:AgentState): 
+        messages=list(state['messages'])
+        messages=[SystemMessage(content=system_prompt)]+messages 
+        message = llm.invoke(messages)
+        return {'messages':[message]}
     
     
     
