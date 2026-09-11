@@ -30,3 +30,6 @@ embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 
 
 
+
+
+
