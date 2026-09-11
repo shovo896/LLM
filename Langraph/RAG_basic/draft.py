@@ -36,5 +36,26 @@ if not os.path.exists(pdf_path):
 pdf_loader=PyPDFLoader(pdf_path)
 
 
+try : 
+    pages= pdf_loader.load()
+    print(f"PDF has been loaded and has {len(pages)} pages ")
+    
+    
+except as e : 
+    print(f ' Error loading PDF : {e}')
+    
+    raise  
+
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size = 1000, 
+    chunk_overlap = 200 
+    
+)
+
+
+
+
+
 
 
