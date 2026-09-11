@@ -93,6 +93,35 @@ try :
     
     
     
+    @tool 
+    
+    def retriever_tool(query:str) -> str : 
+        """ The tool searches and returns the information of a book """ 
+        
+        
+        docs= retriever.invoke(query)
+        if not docs : 
+            return "I found no relevant information in the book "
+        
+        
+        
+        results = []
+        for i ,doc in enumerate(docs): 
+            results.append(f"Document {i+1}:\n{doc.page_content}")
+            
+        return "\n\n".join(results)
+    
+    
+    
+    
+    
+    tools = [retriever_tool]
+    llm = llm.bind_tools(tools) 
+    
+    
+    
+    
+    
 
 
 
