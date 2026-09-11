@@ -29,6 +29,11 @@ llm = ChatOpenAI(
 embeddings = OpenAIEmbeddings(model="text-embedding-3-small") 
 
 
+pdf_path = "../ABUIABA9GAAghIK0ugYowM2h3QY.pdf"
+
+if not os.path.exists(pdf_path): 
+    raise FileNotFoundError(f"PDF file not found: {pdf_path}")
+pdf_loader=PyPDFLoader(pdf_path)
 
 
 
