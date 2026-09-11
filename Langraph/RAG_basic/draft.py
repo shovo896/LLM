@@ -13,3 +13,5 @@ from langchain_chroma import Chroma
 from langchain_core.tools import tool
 
 
+load_dotenv()
+
