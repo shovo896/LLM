@@ -54,6 +54,9 @@ text_splitter = RecursiveCharacterTextSplitter(
 )
 
 
+pages_split=text_splitter.split_documents()
+
+
 
 
 
