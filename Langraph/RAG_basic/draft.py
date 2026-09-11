@@ -150,12 +150,21 @@ try :
     tools_dict = {our_tool.name: our_tool for our_tool in tools }
     
     
-    def call_llm(state:AgentState): 
+    def call_llm(state:AgentState) -> AgentSate: 
         messages=list(state['messages'])
         messages=[SystemMessage(content=system_prompt)]+messages 
         message = llm.invoke(messages)
         return {'messages':[message]}
     
+    
+    def take_action(state : AgentState):
+        tool_calls = state['messages'][-1].tool_calls 
+        
+        results=[]
+        
+        for t in tool_calls : 
+            print(f"calling tool ;{t['name']} with query :{t['args'].get('query'),'No query provided'}") 
+            
     
     
     
