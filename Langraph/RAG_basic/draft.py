@@ -62,6 +62,30 @@ collection_name= "stock_market"
 
 if not os.path.exists(persist_directory): 
     os.makedirs(persist_directory)
+    
+    
+try : 
+    vectorstore= Chroma.from_documents( 
+                                       documents = pages_split,
+                                       embedding = embeddings, 
+                                       persist_directory = persist_directory, 
+                                       collection_name = collection_name
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       
+                                       )
+    print(f"Created ChormaDB vector store")
+    
+    
+    expect  Exception as e : 
+        print(f"Error setting up ChromaDB{str(e)}")
+        raise 
+    
+    
+    
 
 
 
