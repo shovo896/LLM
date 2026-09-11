@@ -57,6 +57,12 @@ text_splitter = RecursiveCharacterTextSplitter(
 pages_split=text_splitter.split_documents(pages)
 
 
+persist_directory = r"Langraph/RAG_basic/db"
+collection_name= "stock_market"
+
+if not os.path.exists(persist_directory): 
+    os.makedirs(persist_directory)
+
 
 
 
