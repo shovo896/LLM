@@ -26,7 +26,7 @@ llm = ChatOpenAI(
 )
 
 
-embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small") 
 
 
 
