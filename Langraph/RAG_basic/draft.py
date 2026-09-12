@@ -203,6 +203,19 @@ try :
     
     rag_agent=graph.compile()
     
+    
+    
+    def running_agent(): 
+        while True : 
+            user_input = input("What is your  name ??")
+            if user_input.lower()  in ['exit','quit']: 
+                break 
+            messages=[HumanMessage(content=user_input)] 
+            result = rag_agent.invoke({'messages':messages})
+            print(result['messages'][-1].content)
+    
+    running_agent()
+    
             
     
     
