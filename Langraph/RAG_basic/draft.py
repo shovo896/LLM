@@ -1,4 +1,4 @@
-import dotenv import load_dotenv 
+from dotenv import load_dotenv 
 import os 
 from langgraph.graph import StateGraph,END 
 from typing import TypedDict , Annotated ,Sequence 
@@ -200,6 +200,9 @@ try :
     graph.add_edge("retriever_agent","llm")
     
     graph.set_entry_point("llm")
+    
+    rag_agent=graph.compile()
+    
             
     
     
