@@ -1,0 +1,13 @@
+digraph ML_Pipeline {
+	A [label="Input Image"]
+	B [label=CNN]
+	C [label="Feature Extraction"]
+	D [label=Fusion]
+	E [label=Classifier]
+	F [label="Beam Prediction"]
+	A -> B
+	B -> C
+	C -> D
+	D -> E
+	E -> F
+}
