@@ -165,6 +165,18 @@ try :
         for t in tool_calls : 
             print(f"calling tool ;{t['name']} with query :{t['args'].get('query'),'No query provided'}") 
             
+            
+            if not t['name'] in tool_dict : 
+                print(f'tool dict does {tp['name']} does not exist ')
+                result = "incorrect tool name "
+                
+            else: 
+                result = tools_dict[t['name']].invoke(t['args'].get('query',''))
+                print(f"Result length : {len(str[result])}")
+                
+                
+            results.append(ToolMessage(tool_call_id =t['id'],name=t['name'],content=str(result)))
+            
     
     
     
