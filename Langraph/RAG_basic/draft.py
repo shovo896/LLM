@@ -177,6 +177,30 @@ try :
                 
             results.append(ToolMessage(tool_call_id =t['id'],name=t['name'],content=str(result)))
             
+            
+        print("Tools execution complete")
+        return {'messages': results}
+    
+    
+    
+    
+    graph = StateGraph(AgentState)
+    
+    graph.add_node('llm',call_llm)
+    graph.add_node('retriever_agent',take_graph)
+    
+    graph.add_conditional_edges("retriever_agent",take_action)
+    
+    graph.add_conditional_edges(
+        "llm",
+        should_continue, 
+        {True:'retriever_agent',False:END}
+    )
+    
+    graph.add_edge("retriever_agent","llm")
+    
+    graph.set_entry_point("llm")
+            
     
     
     
