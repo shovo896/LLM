@@ -128,3 +128,6 @@ def run_document_agent():
         if 'messages' in step : 
                 print_messages(step['messages'])
     print("Drafter Agent has finished")
+
+if __name__ == "main": 
+    run_document_agent()
